@@ -31,11 +31,11 @@ public class RubiksCubeMap : MonoBehaviour
     {
         cubeState = FindObjectOfType<CubeState>();
         UpdateMap(cubeState.front, tFront);
-        /*UpdateMap(cubeState.back, back);
-        UpdateMap(cubeState.left, left);
-        UpdateMap(cubeState.right, right);
-        UpdateMap(cubeState.down, down);
-        UpdateMap(cubeState.up, up);*/
+        UpdateMap(cubeState.back, tBack);
+        UpdateMap(cubeState.left, tLeft);
+        UpdateMap(cubeState.right, tRight);
+        UpdateMap(cubeState.down, tDown);
+        UpdateMap(cubeState.up, tUp);
 
     }
 
@@ -46,37 +46,37 @@ public class RubiksCubeMap : MonoBehaviour
         foreach(Transform map in side)
         {
             //print(face[0].name[0]);
-
+            print(i);
             //map.GetComponent<Image>().color = new Color(1, 0.5f, 0, 1);
-            if (face[0].name[0] == 'B')
-            {
-                map.GetComponent<Image>().color = Color.yellow;
-            }
-            // **************** AZ IF NEM JO /NEM ISMERI FEL AZ OLDALT ******************
-            /*if (face[0].name[0] == 'F')
-            {
-                map.GetComponent<Image>().color = new Color(1, 0.5f, 0, 1);
-            }
             /*if (face[i].name[0] == 'B')
             {
-                map.GetComponent<Image>().color = Color.red;
-            }
-            if (face[i].name[0] == 'U')
-            {
                 map.GetComponent<Image>().color = Color.yellow;
-            }
-            if (face[i].name[0] == 'D')
+            }*/
+            // **************** AZ IF NEM JO /NEM ISMERI FEL AZ OLDALT ******************
+            if (face[i].name[0] == 'F')
             {
                 map.GetComponent<Image>().color = Color.white;
             }
-            if (face[i].name[0] == 'L')
+            if (face[i].name[0] == 'B')
+            {
+                map.GetComponent<Image>().color = Color.yellow;
+            }
+            if (face[i].name[0] == 'U')
+            {
+                map.GetComponent<Image>().color = Color.blue;
+            }
+            if (face[i].name[0] == 'D')
             {
                 map.GetComponent<Image>().color = Color.green;
             }
+            if (face[i].name[0] == 'L')
+            {
+                map.GetComponent<Image>().color = new Color(1, 0.5f, 0, 1);
+            }
             if (face[i].name[0] == 'R')
             {
-                map.GetComponent<Image>().color = Color.blue;
-            }*/
+                map.GetComponent<Image>().color = Color.red;
+            }
             ++i;
         }
     }
