@@ -22,4 +22,18 @@ public class CubeState : MonoBehaviour
     {
         
     }
+
+    public void PickUp(List<GameObject> cubeSide)
+    {
+        foreach(GameObject face in cubeSide)
+        {
+            //a kozepso kockahoz parentolom a szelsokot, tehat az egesz oldal benne lesz 1 gameobjectben, egyszerre tudom kezelni oket
+            if(face != cubeSide[4])
+            {
+                face.transform.parent.transform.parent = cubeSide[4].transform.parent;
+            }
+        }
+
+        cubeSide[4].transform.parent.GetComponent<SideRotation>().Rotate(cubeSide);
+    }
 }

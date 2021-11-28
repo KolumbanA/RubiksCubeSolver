@@ -46,7 +46,7 @@ public class RubiksCubeMap : MonoBehaviour
         foreach(Transform map in side)
         {
             //print(face[0].name[0]);
-            print(i);
+            //print(i);
             //map.GetComponent<Image>().color = new Color(1, 0.5f, 0, 1);
             /*if (face[i].name[0] == 'B')
             {

@@ -40,7 +40,7 @@ public class CubeSideReader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ReadCubeState();
+        //ReadCubeState();
     }
 
     void SetRayTransforms()
