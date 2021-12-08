@@ -11,6 +11,10 @@ public class SideRotation : MonoBehaviour
     private float sensitivity = 0.5f;
     private Vector3 rotation;
 
+    private bool autoRotating = false;
+    private Quaternion targetQuaternion;
+    private float speed = 250f;
+
     private CubeSideReader cubeSideReader;
     private CubeState cubeState;
 
@@ -30,7 +34,13 @@ public class SideRotation : MonoBehaviour
             if(Input.GetMouseButtonUp(0))
             {
                 dragging = false;
+                Rotate90();
             }
+        }
+
+        if(autoRotating)
+        {
+            AutoRotate();
         }
     }
 
@@ -47,6 +57,31 @@ public class SideRotation : MonoBehaviour
             rotation.x = (mouseOffset.x + mouseOffset.y) * sensitivity * -1;
             //print(rotation);
         }
+        if (side == cubeState.back)
+        {
+            rotation.x = (mouseOffset.x + mouseOffset.y) * sensitivity * 1;
+            //print(rotation);
+        }
+        if (side == cubeState.up)
+        {
+            rotation.y = (mouseOffset.x + mouseOffset.y) * sensitivity * 1;
+            //print(rotation);
+        }
+        if (side == cubeState.down)
+        {
+            rotation.y = (mouseOffset.x + mouseOffset.y) * sensitivity * -1;
+            //print(rotation);
+        }
+        if (side == cubeState.left)
+        {
+            rotation.z = (mouseOffset.x + mouseOffset.y) * sensitivity * 1;
+            //print(rotation);
+        }
+        if (side == cubeState.right)
+        {
+            rotation.z = (mouseOffset.x + mouseOffset.y) * sensitivity * -1;
+            //print(rotation);
+        }
 
         transform.Rotate(rotation, Space.Self);
 
@@ -61,4 +96,39 @@ public class SideRotation : MonoBehaviour
 
         localForward = Vector3.zero - side[4].transform.parent.transform.localPosition;
     }
+
+    public void Rotate90()
+    {
+        Vector3 vec = transform.localEulerAngles;
+
+        vec.x = Mathf.Round(vec.x / 90) * 90;
+        vec.y = Mathf.Round(vec.y / 90) * 90;
+        vec.z = Mathf.Round(vec.z / 90) * 90;
+
+        targetQuaternion.eulerAngles = vec;
+        autoRotating = true;
+    }
+
+    private void AutoRotate()
+    {
+        dragging = false;
+        var step = speed * Time.deltaTime;
+        transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetQuaternion, step);
+
+        if(Quaternion.Angle(transform.localRotation, targetQuaternion) <= 1)
+        {
+            transform.localRotation = targetQuaternion;
+
+            //le szedni a parentrol az oldalakat
+
+            cubeState.PutDown(activeSide, transform.parent);
+            cubeSideReader.ReadCubeState();
+
+            autoRotating = false;
+            dragging = false;
+
+        }
+    }
+
+   
 }
