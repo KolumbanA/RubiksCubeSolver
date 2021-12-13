@@ -33,7 +33,8 @@ public class CubeSideReader : MonoBehaviour
         rubiksCubeMap = FindObjectOfType<RubiksCubeMap>();
 
         SetRayTransforms();
-
+        ReadCubeState();
+        CubeState.gameLoaded = true;
         
     }
 

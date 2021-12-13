@@ -13,7 +13,7 @@ public class SideRotation : MonoBehaviour
 
     private bool autoRotating = false;
     private Quaternion targetQuaternion;
-    private float speed = 250f;
+    private float speed = 600f;
 
     private CubeSideReader cubeSideReader;
     private CubeState cubeState;
@@ -126,8 +126,18 @@ public class SideRotation : MonoBehaviour
 
             autoRotating = false;
             dragging = false;
+            CubeState.autoRotating = false;
 
         }
+    }
+
+    public void StartAutoRotate(List<GameObject> side, float angle)
+    {
+        cubeState.PickUp(side);
+        Vector3 localForward = Vector3.zero - side[4].transform.parent.transform.localPosition;
+        targetQuaternion = Quaternion.AngleAxis(angle, localForward) * transform.localRotation;
+        activeSide = side;
+        autoRotating = true;
     }
 
    
