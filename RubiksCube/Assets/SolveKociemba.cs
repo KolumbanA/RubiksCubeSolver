@@ -20,7 +20,7 @@ public class SolveKociemba : MonoBehaviour
         if(CubeState.gameLoaded && doOnce)
         {
             doOnce = false;
-            //Solver();
+            Solver();
         }
     }
 
