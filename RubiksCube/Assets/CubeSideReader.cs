@@ -42,6 +42,19 @@ public class CubeSideReader : MonoBehaviour
     void Update()
     {
         //ReadCubeState();
+        Vector3 ray = tFront.transform.position;
+        RaycastHit hit;
+
+        // ************ 5000 distance lehet problemas lesz kesobb ************ ************ ************
+        if (Physics.Raycast(ray, tFront.forward, out hit, 5000, layerMask))
+        {
+            Debug.DrawRay(ray, tFront.forward * hit.distance, Color.yellow);
+            //print(hit.collider.gameObject.name);
+        }
+        else
+        {
+            Debug.DrawRay(ray, tFront.forward * 1000, Color.green);
+        }
     }
 
     void SetRayTransforms()

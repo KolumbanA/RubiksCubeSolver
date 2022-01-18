@@ -49,4 +49,39 @@ public class CubeState : MonoBehaviour
             }
         }
     }
+
+    string GetSideString(List<GameObject> side)
+    {
+        string sideString = "";
+        foreach (GameObject face in side)
+        {
+            sideString += face.name[0].ToString();
+        }
+        //reverse string needed in sideString for some reason
+        return sideString;
+    }
+
+    public string Reverse(string text)
+    {
+        char[] cArray = text.ToCharArray();
+        string reverse = string.Empty;
+        for (int i = cArray.Length - 1; i > -1; i--)
+        {
+            reverse += cArray[i];
+        }
+        return reverse;
+    }
+
+    public string GetStateString()
+    {
+        string stateString = "";
+        stateString += GetSideString(up);
+        stateString += GetSideString(right);
+        stateString += GetSideString(front);
+        stateString += GetSideString(down);
+        stateString += GetSideString(left);
+        stateString += GetSideString(back);
+        
+        return stateString;
+    }
 }

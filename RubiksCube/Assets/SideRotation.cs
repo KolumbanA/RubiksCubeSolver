@@ -25,10 +25,9 @@ public class SideRotation : MonoBehaviour
         cubeState = FindObjectOfType<CubeState>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if(dragging)
+        if(dragging && !autoRotating)
         {
             SpinSide(activeSide);
             if(Input.GetMouseButtonUp(0))

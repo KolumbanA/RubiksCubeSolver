@@ -41,23 +41,15 @@ public class RubiksCubeMap : MonoBehaviour
 
     void UpdateMap(List<GameObject> face, Transform side)
     {
-        
         int i = 0;
         foreach(Transform map in side)
         {
-            //print(face[0].name[0]);
-            //print(i);
-            //map.GetComponent<Image>().color = new Color(1, 0.5f, 0, 1);
-            /*if (face[i].name[0] == 'B')
-            {
-                map.GetComponent<Image>().color = Color.yellow;
-            }*/
-            // **************** AZ IF NEM JO /NEM ISMERI FEL AZ OLDALT ******************
-            if (face[i].name[0] == 'F')
+            if (face[i].name[0] == 'B')
             {
                 map.GetComponent<Image>().color = Color.white;
             }
-            if (face[i].name[0] == 'B')
+            
+            if (face[i].name[0] == 'F')
             {
                 map.GetComponent<Image>().color = Color.yellow;
             }
@@ -65,17 +57,19 @@ public class RubiksCubeMap : MonoBehaviour
             {
                 map.GetComponent<Image>().color = Color.blue;
             }
+            
+
             if (face[i].name[0] == 'D')
             {
                 map.GetComponent<Image>().color = Color.green;
             }
             if (face[i].name[0] == 'L')
             {
-                map.GetComponent<Image>().color = new Color(1, 0.5f, 0, 1);
+                map.GetComponent<Image>().color = Color.red;
             }
             if (face[i].name[0] == 'R')
             {
-                map.GetComponent<Image>().color = Color.red;
+                map.GetComponent<Image>().color = new Color(1, 0.5f, 0, 1);
             }
             ++i;
         }
