@@ -50,7 +50,6 @@ public class SideRotation : MonoBehaviour
         Vector3 mouseOffset = (Input.mousePosition - mouseRef);
 
 
-        //nem jol szamolja ki a rotationt
         if(side == cubeState.front)
         {
             rotation.x = (mouseOffset.x + mouseOffset.y) * sensitivity * -1;

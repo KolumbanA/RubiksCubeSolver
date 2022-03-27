@@ -136,6 +136,7 @@ public class AutoRotation : MonoBehaviour
     void RotateSide(List<GameObject> side, float angle)
     {
         SideRotation sr = side[4].transform.parent.GetComponent<SideRotation>();
+        Debug.Log(sr);
         sr.StartAutoRotate(side, angle);
     }    
 }
