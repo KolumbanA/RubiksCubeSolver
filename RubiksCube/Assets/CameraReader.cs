@@ -10,15 +10,16 @@ public class CameraReader : MonoBehaviour
     private Texture defaultBackground;
 
     public RawImage background;
+    public RawImage cubeGrid;
 
-
-    //teszt kocka amire kiteszem a szint
-    public RawImage colorCube;
+    ReadCubeCubeMap readCubeCubeMap;
 
 
 
     private void Start()
     {
+        readCubeCubeMap = FindObjectOfType<ReadCubeCubeMap>();
+
         defaultBackground = background.texture;
         WebCamDevice[] devices = WebCamTexture.devices;
 
@@ -38,6 +39,7 @@ public class CameraReader : MonoBehaviour
         background.texture = backCam;
 
         background.SetNativeSize();
+
 
         camAvaible = true;
 
@@ -63,91 +65,66 @@ public class CameraReader : MonoBehaviour
                 Debug.Log("mouse position y " + mousePos.y);
             }
 
+            Vector3 cubeGridPos = cubeGrid.transform.position; // itt ez a grid bal also sarkat adja vissza, tehat ehhez meg majd hozza kell adni
 
+            //ez igy a bal also kocka kozepe
+            cubeGridPos.x += 55;
+            cubeGridPos.y += 55;
+            Debug.Log("grid x " + cubeGridPos.x);
+            Debug.Log("grid y " + cubeGridPos.y);
 
+            readCubeCubeMap.UpdateMap( readCubeCubeMap.front, ReadColorFromSide( (int)cubeGridPos.x, (int)cubeGridPos.y));
+            readCubeCubeMap.UpdateMap(readCubeCubeMap.back, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
 
-
-            Color clickedColor = backCam.GetPixel((int)mousePos.x, (int)mousePos.y);
-
-            //egy kocka formaban kiszedni pixelek szinet es atlagolni
-
-            float r = 0;
-            float g = 0;
-            float b = 0;
-
-            float cnt = 0;
-
-            Color nearClickedColor = backCam.GetPixel((int)mousePos.x + 1, (int)mousePos.y + 1);
-
-            r += nearClickedColor.r;
-            g += nearClickedColor.g;
-            b += nearClickedColor.b;
-            ++cnt;
-
-            nearClickedColor = backCam.GetPixel((int)mousePos.x - 1, (int)mousePos.y - 1);
-
-            r += nearClickedColor.r;
-            g += nearClickedColor.g;
-            b += nearClickedColor.b;
-            ++cnt;
-
-            nearClickedColor = backCam.GetPixel((int)mousePos.x - 1, (int)mousePos.y + 1);
-
-            r += nearClickedColor.r;
-            g += nearClickedColor.g;
-            b += nearClickedColor.b;
-            ++cnt;
-
-            nearClickedColor = backCam.GetPixel((int)mousePos.x + 1, (int)mousePos.y - 1);
-
-            r += nearClickedColor.r;
-            g += nearClickedColor.g;
-            b += nearClickedColor.b;
-            ++cnt;
-
-            nearClickedColor = backCam.GetPixel((int)mousePos.x, (int)mousePos.y);
-
-            r += nearClickedColor.r;
-            g += nearClickedColor.g;
-            b += nearClickedColor.b;
-            ++cnt;
-
-            nearClickedColor = backCam.GetPixel((int)mousePos.x - 10, (int)mousePos.y - 10);
-
-            r += nearClickedColor.r;
-            g += nearClickedColor.g;
-            b += nearClickedColor.b;
-            ++cnt;
-
-            nearClickedColor = backCam.GetPixel((int)mousePos.x - 10, (int)mousePos.y + 10);
-
-            r += nearClickedColor.r;
-            g += nearClickedColor.g;
-            b += nearClickedColor.b;
-            ++cnt;
-
-            nearClickedColor = backCam.GetPixel((int)mousePos.x + 10, (int)mousePos.y - 10);
-
-            r += nearClickedColor.r;
-            g += nearClickedColor.g;
-            b += nearClickedColor.b;
-            ++cnt;
-
-            nearClickedColor = backCam.GetPixel((int)mousePos.x + 10, (int)mousePos.y + 10);
-
-            r += nearClickedColor.r;
-            g += nearClickedColor.g;
-            b += nearClickedColor.b;
-            ++cnt;
-
-            Color avarageColor = new Color(r / cnt, g / cnt, b / cnt);
-            colorCube.color = avarageColor;
-
-            //-------
-
-            //colorCube.color = clickedColor;
 
         }
+    }
+
+    private Color[] ReadColorFromSide(int x, int y)
+    {
+        int[] xOffsets = {0, 100, 200, 0, 100, 200, 0, 100, 200};
+        int[] yOffsets = {200, 200, 200, 100, 100, 100, 0, 0, 0};
+
+        Color[] colorsOfSide = new Color[9];
+
+        for(int i=0; i<9; ++i)
+        {
+            colorsOfSide[i] = ReadColorFromCoordinates(x + xOffsets[i], y + yOffsets[i]);
+        }
+
+        return colorsOfSide;
+    }
+
+    private Color ReadColorFromCoordinates(int Coordx, int Coordy)
+    {
+        //egy kocka formaban kiszedni pixelek szinet es atlagolni
+        float r = 0;
+        float g = 0;
+        float b = 0;
+
+        float cnt = 0;
+
+        int[] pixelCoordinateOffsets = new int[] { -10, -5, 5, 10 };
+
+        Color cubeGridMiddleColor;
+
+        foreach (int x in pixelCoordinateOffsets)
+        {
+            foreach (int y in pixelCoordinateOffsets)
+            {
+                cubeGridMiddleColor = backCam.GetPixel(Coordx + x, Coordy + y);
+
+                r += cubeGridMiddleColor.r;
+                g += cubeGridMiddleColor.g;
+                b += cubeGridMiddleColor.b;
+                ++cnt;
+            }
+        }
+
+        Color avarageColor = new Color(r / cnt, g / cnt, b / cnt);
+
+        return avarageColor;
+        //readCubeCubeMap.UpdateMap(avarageColor);
     }
 
     public void StopCameraPlaying()
