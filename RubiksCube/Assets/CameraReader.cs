@@ -14,11 +14,23 @@ public class CameraReader : MonoBehaviour
 
     ReadCubeCubeMap readCubeCubeMap;
 
+    Vector3 cubeGridPos;
 
 
     private void Start()
     {
         readCubeCubeMap = FindObjectOfType<ReadCubeCubeMap>();
+
+        cubeGridPos = cubeGrid.transform.position; // itt ez a grid bal also sarkat adja vissza, tehat ehhez meg majd hozza kell adni
+        
+        //ez igy a bal also kocka kozepe
+        cubeGridPos.x += 55;
+        cubeGridPos.y += 55;
+        Debug.Log("grid x " + cubeGridPos.x);
+        Debug.Log("grid y " + cubeGridPos.y);
+
+
+
 
         defaultBackground = background.texture;
         WebCamDevice[] devices = WebCamTexture.devices;
@@ -53,7 +65,7 @@ public class CameraReader : MonoBehaviour
         }
 
 
-        float ratio = (float)backCam.width / (float)backCam.height;
+        //float ratio = (float)backCam.width / (float)backCam.height;
         //fit.aspectRatio = ratio;
 
 
@@ -64,20 +76,37 @@ public class CameraReader : MonoBehaviour
                 Debug.Log("mouse position x " + mousePos.x);
                 Debug.Log("mouse position y " + mousePos.y);
             }
-
-            Vector3 cubeGridPos = cubeGrid.transform.position; // itt ez a grid bal also sarkat adja vissza, tehat ehhez meg majd hozza kell adni
-
-            //ez igy a bal also kocka kozepe
-            cubeGridPos.x += 55;
-            cubeGridPos.y += 55;
-            Debug.Log("grid x " + cubeGridPos.x);
-            Debug.Log("grid y " + cubeGridPos.y);
-
-            readCubeCubeMap.UpdateMap( readCubeCubeMap.front, ReadColorFromSide( (int)cubeGridPos.x, (int)cubeGridPos.y));
-            readCubeCubeMap.UpdateMap(readCubeCubeMap.back, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
-
-
         }
+    }
+
+    public void ReadFrontFace()
+    {
+        readCubeCubeMap.UpdateMap(readCubeCubeMap.front, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
+    }
+
+    public void ReadBackFace()
+    {
+        readCubeCubeMap.UpdateMap(readCubeCubeMap.back, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
+    }
+
+    public void ReadUpFace()
+    {
+        readCubeCubeMap.UpdateMap(readCubeCubeMap.up, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
+    }
+
+    public void ReadDownFace()
+    {
+        readCubeCubeMap.UpdateMap(readCubeCubeMap.down, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
+    }
+
+    public void ReadRightFace()
+    {
+        readCubeCubeMap.UpdateMap(readCubeCubeMap.right, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
+    }
+
+    public void ReadLeftFace()
+    {
+        readCubeCubeMap.UpdateMap(readCubeCubeMap.left, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
     }
 
     private Color[] ReadColorFromSide(int x, int y)
@@ -104,7 +133,7 @@ public class CameraReader : MonoBehaviour
 
         float cnt = 0;
 
-        int[] pixelCoordinateOffsets = new int[] { -10, -5, 5, 10 };
+        int[] pixelCoordinateOffsets = new int[] { -15, -10, -5, 5, 10, 15};
 
         Color cubeGridMiddleColor;
 
@@ -124,7 +153,6 @@ public class CameraReader : MonoBehaviour
         Color avarageColor = new Color(r / cnt, g / cnt, b / cnt);
 
         return avarageColor;
-        //readCubeCubeMap.UpdateMap(avarageColor);
     }
 
     public void StopCameraPlaying()
