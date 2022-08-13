@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ReadCubeCubeMap : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class ReadCubeCubeMap : MonoBehaviour
 
     void Start()
     {
-        
+        UpdateCubeColorsArray();
     }
 
     // Update is called once per frame
@@ -35,12 +36,24 @@ public class ReadCubeCubeMap : MonoBehaviour
 
     private void UpdateCubeColorsArray()
     {
+        // ez a 6 szin amit kintrol huzok be prefabbol
         cubeColorsArray[0] = cubeRedColor.color;
         cubeColorsArray[1] = cubeGreenColor.color;
         cubeColorsArray[2] = cubeBlueColor.color;
         cubeColorsArray[3] = cubeOrangeColor.color;
         cubeColorsArray[4] = cubeWhiteColor.color;
         cubeColorsArray[5] = cubeYellowColor.color;
+
+    }
+
+    private float SmartColorDifference(Color color1, Color color2)
+    {
+        float rmean = ((float)color1.r + (float)color2.r) / 2;
+        float r = (float)color1.r - (float)color2.r;
+        float g = (float)color1.g - (float)color2.g;
+        float b = (float)color1.b - (float)color2.b;
+
+        return Mathf.Sqrt((((512 + rmean) * r * r)/(Mathf.Pow(2,8))) + 4 * g * g + (((767 - rmean) * b * b)/(Mathf.Pow(2, 8))));
     }
 
     private float ColorDifference(Color color1, Color color2)
@@ -50,33 +63,27 @@ public class ReadCubeCubeMap : MonoBehaviour
 
     private Color MatchColorToCubeColor(Color color)
     {
-        double minDifference = ColorDifference(color, cubeColorsArray[0]);
+        double minDifference = SmartColorDifference(color, cubeColorsArray[0]);
         double difference;
         int minDifferenceIndex = 0;
 
         for(int i = 0; i < 6; ++i)
         {
-            difference = ColorDifference(color, cubeColorsArray[i]);
+            difference = SmartColorDifference(color, cubeColorsArray[i]);
             if (difference < minDifference)
             {
                 minDifference = difference;
                 minDifferenceIndex = i;
+                //Debug.Log(i);
             }
+
+
         }
-        /*
-        Debug.Log("yellowR" + Color.yellow.r);
-        Debug.Log("yellowG" + Color.yellow.g);
-        Debug.Log("yellowB" + Color.yellow.b);
 
-
-        Debug.Log("orangeR" + cubeOrangeColor.r);
-        Debug.Log("orangeG" + cubeOrangeColor.g);
-        Debug.Log("orangeB" + cubeOrangeColor.b);
-        */
         return cubeColorsArray[minDifferenceIndex];
     }
 
-    public void UpdateMap(Transform side, Color[] color)
+    public void UpdateMap2(Transform side, Color[] color)
     {
 
         side.GetChild(0).GetComponent<Image>().color = MatchColorToCubeColor(color[0]);
