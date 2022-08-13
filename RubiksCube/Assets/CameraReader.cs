@@ -340,6 +340,18 @@ public class CameraReader : MonoBehaviour
         lowerTresholdWhite.V = 50;
         lowerTresholdWhite = HSVtoPercentileHSV(lowerTresholdWhite);
 
+        // yellow treshhold
+        HSVColor upperTresholdYellow;
+        upperTresholdYellow.H = 85;
+        upperTresholdYellow.S = 100;
+        upperTresholdYellow.V = 100;
+        upperTresholdYellow = HSVtoPercentileHSV(upperTresholdYellow);
+
+        HSVColor lowerTresholdYellow;
+        lowerTresholdYellow.H = 40;
+        lowerTresholdYellow.S = 50;
+        lowerTresholdYellow.V = 15;
+        lowerTresholdYellow = HSVtoPercentileHSV(lowerTresholdYellow);
 
         for (int x = -25; x < 25; ++x)
         {
@@ -392,6 +404,19 @@ public class CameraReader : MonoBehaviour
             }
         }
 
+        // red2 detection
+        outputFromInRange = InRange(HSVFromImage, upperTresholdRed2, lowerTresholdRed2);
+        for (int x = -25; x < 25; ++x)
+        {
+            for (int y = -25; y < 25; ++y)
+            {
+                if (outputFromInRange[x + 25, y + 25] == 1)
+                {
+                    snap.SetPixel(Coordx + x, Coordy + y, Color.red);
+                }
+            }
+        }
+
         // blue detection
         outputFromInRange = InRange(HSVFromImage, upperTresholdBlue, lowerTresholdBlue);
         for (int x = -25; x < 25; ++x)
@@ -414,6 +439,19 @@ public class CameraReader : MonoBehaviour
                 if (outputFromInRange[x + 25, y + 25] == 1)
                 {
                     snap.SetPixel(Coordx + x, Coordy + y, Color.white);
+                }
+            }
+        }
+
+        // yellow detection
+        outputFromInRange = InRange(HSVFromImage, upperTresholdYellow, lowerTresholdYellow);
+        for (int x = -25; x < 25; ++x)
+        {
+            for (int y = -25; y < 25; ++y)
+            {
+                if (outputFromInRange[x + 25, y + 25] == 1)
+                {
+                    snap.SetPixel(Coordx + x, Coordy + y, Color.yellow);
                 }
             }
         }
