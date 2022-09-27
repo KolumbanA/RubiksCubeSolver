@@ -83,6 +83,25 @@ public class ReadCubeCubeMap : MonoBehaviour
         return cubeColorsArray[minDifferenceIndex];
     }
 
+
+    private Color MatchColorToCubeColorByIndex(int colorIndex)
+    {
+        if (colorIndex == 1)
+            return cubeColorsArray[0];
+        if(colorIndex == 2)
+            return cubeColorsArray[1];
+        if(colorIndex == 3)
+            return cubeColorsArray[2];
+        if(colorIndex == 4)
+            return cubeColorsArray[5];
+        if(colorIndex == 5)
+            return cubeColorsArray[3];
+        if(colorIndex == 6)
+            return cubeColorsArray[4];
+
+        return cubeColorsArray[0];
+    }
+
     public void UpdateMap2(Transform side, Color[] color)
     {
 
@@ -95,6 +114,21 @@ public class ReadCubeCubeMap : MonoBehaviour
         side.GetChild(6).GetComponent<Image>().color = MatchColorToCubeColor(color[6]);
         side.GetChild(7).GetComponent<Image>().color = MatchColorToCubeColor(color[7]);
         side.GetChild(8).GetComponent<Image>().color = MatchColorToCubeColor(color[8]);
+
+    }
+
+    public void UpdateMap3(Transform side, int[] colorIndex)
+    {
+
+        side.GetChild(0).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[0]);
+        side.GetChild(1).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[1]);
+        side.GetChild(2).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[2]);
+        side.GetChild(3).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[3]);
+        side.GetChild(4).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[4]);
+        side.GetChild(5).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[5]);
+        side.GetChild(6).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[6]);
+        side.GetChild(7).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[7]);
+        side.GetChild(8).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[8]);
 
     }
 }

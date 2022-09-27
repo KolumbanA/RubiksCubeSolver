@@ -81,35 +81,35 @@ public class CameraReader : MonoBehaviour
 
     public void ReadFrontFace()
     {
-        readCubeCubeMap.UpdateMap2(readCubeCubeMap.front, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
+        readCubeCubeMap.UpdateMap3(readCubeCubeMap.front, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
     }
 
     public void ReadBackFace()
     {
-        readCubeCubeMap.UpdateMap2(readCubeCubeMap.back, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
+        readCubeCubeMap.UpdateMap3(readCubeCubeMap.back, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
     }
 
     public void ReadUpFace()
     {
-        readCubeCubeMap.UpdateMap2(readCubeCubeMap.up, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
+        readCubeCubeMap.UpdateMap3(readCubeCubeMap.up, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
     }
 
     public void ReadDownFace()
     {
-        readCubeCubeMap.UpdateMap2(readCubeCubeMap.down, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
+        readCubeCubeMap.UpdateMap3(readCubeCubeMap.down, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
     }
 
     public void ReadRightFace()
     {
-        readCubeCubeMap.UpdateMap2(readCubeCubeMap.right, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
+        readCubeCubeMap.UpdateMap3(readCubeCubeMap.right, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
     }
 
     public void ReadLeftFace()
     {
-        readCubeCubeMap.UpdateMap2(readCubeCubeMap.left, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
+        readCubeCubeMap.UpdateMap3(readCubeCubeMap.left, ReadColorFromSide((int)cubeGridPos.x, (int)cubeGridPos.y));
     }
 
-    private Color[] ReadColorFromSide(int x, int y)
+    private int[] ReadColorFromSide(int x, int y)
     {
         snap = new Texture2D(backCam.width, backCam.height);
         snap.SetPixels(backCam.GetPixels());
@@ -118,70 +118,15 @@ public class CameraReader : MonoBehaviour
         int[] xOffsets = {0, 100, 200, 0, 100, 200, 0, 100, 200};
         int[] yOffsets = {200, 200, 200, 100, 100, 100, 0, 0, 0};
 
-        Color[] colorsOfSide = new Color[9];
+        int[] colorIndexOfSide = new int[9];
 
         for(int i=0; i<9; ++i)
         {
-            colorsOfSide[i] = ReadColorFromCoordinates(x + xOffsets[i], y + yOffsets[i]);
-            ReadColorFromCoordinatesHSV(x + xOffsets[i], y + yOffsets[i]);
+            colorIndexOfSide[i] = ReadColorFromCoordinatesHSV(x + xOffsets[i], y + yOffsets[i]);
         }
 
-        return colorsOfSide;
+        return colorIndexOfSide;
     }
-
-    private Color ReadColorFromCoordinates(int Coordx, int Coordy)
-    {
-        //egy kocka formaban kiszedni pixelek szinet es atlagolni
-        float r = 0;
-        float g = 0;
-        float b = 0;
-
-        float cnt = 0;
-
-        //-------
-        // 50x50 es gridbol atlagolok
-        Color cubeGridMiddleColor;
-
-        for (int x = -25; x <= 25; ++x)
-        {
-            for (int y = -25; y <= 25; ++y)
-            {
-                cubeGridMiddleColor = backCam.GetPixel(Coordx + x, Coordy + y);
-
-                r += cubeGridMiddleColor.r;
-                g += cubeGridMiddleColor.g;
-                b += cubeGridMiddleColor.b;
-                ++cnt;
-            }
-        }
-        //---------
-
-
-        /*
-        // fix szamu offsetes megoldas
-        int[] pixelCoordinateOffsets = new int[] { -15, -10, -5, 5, 10, 15};
-
-        Color cubeGridMiddleColor;
-
-        foreach (int x in pixelCoordinateOffsets)
-        {
-            foreach (int y in pixelCoordinateOffsets)
-            {
-                cubeGridMiddleColor = backCam.GetPixel(Coordx + x, Coordy + y);
-
-                r += cubeGridMiddleColor.r;
-                g += cubeGridMiddleColor.g;
-                b += cubeGridMiddleColor.b;
-                ++cnt;
-            }
-        }
-        */
-
-        Color avarageColor = new Color(r / cnt, g / cnt, b / cnt);
-
-        return avarageColor;
-    }
-
 
     //------------ HSV COLOR FUCKERY
     public struct HSVColor
@@ -252,8 +197,17 @@ public class CameraReader : MonoBehaviour
         return output;
     }
 
-    public void ReadColorFromCoordinatesHSV(int Coordx, int Coordy)
+    private int ReadColorFromCoordinatesHSV(int Coordx, int Coordy)
     {
+        /*
+            red - 1
+            green - 2
+            blue - 3
+            yellow - 4
+            orange - 5
+            white - 6 
+        */
+
         //Texture2D snap = new Texture2D(backCam.width, backCam.height);
         //snap.SetPixels(backCam.GetPixels());//debug kedveert
         //snap.Apply();
@@ -298,7 +252,7 @@ public class CameraReader : MonoBehaviour
         HSVColor lowerTresholdRed;
         lowerTresholdRed.H = 345;
         lowerTresholdRed.S = 50;
-        lowerTresholdRed.V = 26;
+        lowerTresholdRed.V = 10;
         lowerTresholdRed = HSVtoPercentileHSV(lowerTresholdRed);
         
         // red treshhold 2
@@ -311,7 +265,7 @@ public class CameraReader : MonoBehaviour
         HSVColor lowerTresholdRed2;
         lowerTresholdRed2.H = 0;
         lowerTresholdRed2.S = 50;
-        lowerTresholdRed2.V = 26;
+        lowerTresholdRed2.V = 10;
         lowerTresholdRed2 = HSVtoPercentileHSV(lowerTresholdRed2);
 
         // blue treshhold
@@ -363,7 +317,8 @@ public class CameraReader : MonoBehaviour
             }
         }
 
-        //Debug.Log("H: " + HSVFromImage[25, 25].H + " S: " + HSVFromImage[25, 25].S + " V: " + HSVFromImage[25, 25].V);
+        // this will be counting each time a detection is found, if it hits a given percentile, we return a color
+        int foundColor = 0;
 
         // green detection
         outputFromInRange = InRange(HSVFromImage, upperTresholdGreen, lowerTresholdGreen);
@@ -373,10 +328,282 @@ public class CameraReader : MonoBehaviour
             {
                 if(outputFromInRange[x+25,y+25] == 1)
                 {
-                    snap.SetPixel(Coordx + x, Coordy + y, Color.green);
+                    //snap.SetPixel(Coordx + x, Coordy + y, Color.green);
+                    ++foundColor;
                 }
             }
         }
+
+        // if we had foudn a color more than X times, we can return it confidentally
+        if (foundColor > 180)
+            return 2;
+        else
+            foundColor = 0;
+
+        // orange detection
+        outputFromInRange = InRange(HSVFromImage, upperTresholdOrange, lowerTresholdOrange);
+        for (int x = -25; x < 25; ++x)
+        {
+            for (int y = -25; y < 25; ++y)
+            {
+                if (outputFromInRange[x + 25, y + 25] == 1)
+                {
+                    //snap.SetPixel(Coordx + x, Coordy + y, Color.magenta);
+                    ++foundColor;
+                }
+            }
+        }
+
+        if (foundColor > 180)
+            return 5;
+        else
+            foundColor = 0;
+
+        // red detection
+        outputFromInRange = InRange(HSVFromImage, upperTresholdRed, lowerTresholdRed);
+        for (int x = -25; x < 25; ++x)
+        {
+            for (int y = -25; y < 25; ++y)
+            {
+                if (outputFromInRange[x + 25, y + 25] == 1)
+                {
+                    //snap.SetPixel(Coordx + x, Coordy + y, Color.red);
+                    ++foundColor;
+                }
+            }
+        }
+
+        if (foundColor > 180)
+            return 1;
+        else
+            foundColor = 0;
+
+        // red2 detection
+        outputFromInRange = InRange(HSVFromImage, upperTresholdRed2, lowerTresholdRed2);
+        for (int x = -25; x < 25; ++x)
+        {
+            for (int y = -25; y < 25; ++y)
+            {
+                if (outputFromInRange[x + 25, y + 25] == 1)
+                {
+                    //snap.SetPixel(Coordx + x, Coordy + y, Color.red);
+                    ++foundColor;
+                }
+            }
+        }
+
+        if (foundColor > 180)
+            return 1;
+        else
+            foundColor = 0;
+
+        // blue detection
+        outputFromInRange = InRange(HSVFromImage, upperTresholdBlue, lowerTresholdBlue);
+        for (int x = -25; x < 25; ++x)
+        {
+            for (int y = -25; y < 25; ++y)
+            {
+                if (outputFromInRange[x + 25, y + 25] == 1)
+                {
+                    //snap.SetPixel(Coordx + x, Coordy + y, Color.blue);
+                    ++foundColor;
+                }
+            }
+        }
+
+        if (foundColor > 180)
+            return 3;
+        else
+            foundColor = 0;
+
+        // white detection
+        outputFromInRange = InRange(HSVFromImage, upperTresholdWhite, lowerTresholdWhite);
+        for (int x = -25; x < 25; ++x)
+        {
+            for (int y = -25; y < 25; ++y)
+            {
+                if (outputFromInRange[x + 25, y + 25] == 1)
+                {
+                    //snap.SetPixel(Coordx + x, Coordy + y, Color.white);
+                    ++foundColor;
+                }
+            }
+        }
+
+        if (foundColor > 180)
+            return 6;
+        else
+            foundColor = 0;
+
+        // yellow detection
+        outputFromInRange = InRange(HSVFromImage, upperTresholdYellow, lowerTresholdYellow);
+        for (int x = -25; x < 25; ++x)
+        {
+            for (int y = -25; y < 25; ++y)
+            {
+                if (outputFromInRange[x + 25, y + 25] == 1)
+                {
+                    //snap.SetPixel(Coordx + x, Coordy + y, Color.yellow);
+                    ++foundColor;
+                }
+            }
+        }
+
+        if (foundColor > 180)
+            return 4;
+        else
+            foundColor = 0;
+
+        //snap.Apply();
+        //background.texture = snap;
+
+        return 0;
+    }
+
+    private int ReadColorFromCoordinatesHSVDebugModeON(int Coordx, int Coordy)
+    {
+        /*
+            red - 1
+            green - 2
+            blue - 3
+            yellow - 4
+            orange - 5
+            white - 6 
+        */
+
+        //Texture2D snap = new Texture2D(backCam.width, backCam.height);
+        //snap.SetPixels(backCam.GetPixels());//debug kedveert
+        //snap.Apply();
+
+        Color cubeGridPixelColor;
+        HSVColor[,] HSVFromImage = new HSVColor[50, 50];
+        short[,] outputFromInRange = new short[50, 50];
+
+        // green treshhold
+        HSVColor upperTresholdGreen;
+        upperTresholdGreen.H = 185;
+        upperTresholdGreen.S = 100;
+        upperTresholdGreen.V = 100;
+        upperTresholdGreen = HSVtoPercentileHSV(upperTresholdGreen);
+
+        HSVColor lowerTresholdGreen;
+        lowerTresholdGreen.H = 90;
+        lowerTresholdGreen.S = 50;
+        lowerTresholdGreen.V = 15;
+        lowerTresholdGreen = HSVtoPercentileHSV(lowerTresholdGreen);
+
+        // orange treshhold
+        HSVColor upperTresholdOrange;
+        upperTresholdOrange.H = 40;
+        upperTresholdOrange.S = 100;
+        upperTresholdOrange.V = 100;
+        upperTresholdOrange = HSVtoPercentileHSV(upperTresholdOrange);
+
+        HSVColor lowerTresholdOrange;
+        lowerTresholdOrange.H = 10;
+        lowerTresholdOrange.S = 50;
+        lowerTresholdOrange.V = 15;
+        lowerTresholdOrange = HSVtoPercentileHSV(lowerTresholdOrange);
+
+        // red treshhold
+        HSVColor upperTresholdRed;
+        upperTresholdRed.H = 360;
+        upperTresholdRed.S = 100;
+        upperTresholdRed.V = 100;
+        upperTresholdRed = HSVtoPercentileHSV(upperTresholdRed);
+
+        HSVColor lowerTresholdRed;
+        lowerTresholdRed.H = 345;
+        lowerTresholdRed.S = 50;
+        lowerTresholdRed.V = 10;
+        lowerTresholdRed = HSVtoPercentileHSV(lowerTresholdRed);
+
+        // red treshhold 2
+        HSVColor upperTresholdRed2;
+        upperTresholdRed2.H = 10;
+        upperTresholdRed2.S = 100;
+        upperTresholdRed2.V = 100;
+        upperTresholdRed2 = HSVtoPercentileHSV(upperTresholdRed2);
+
+        HSVColor lowerTresholdRed2;
+        lowerTresholdRed2.H = 0;
+        lowerTresholdRed2.S = 50;
+        lowerTresholdRed2.V = 10;
+        lowerTresholdRed2 = HSVtoPercentileHSV(lowerTresholdRed2);
+
+        // blue treshhold
+        HSVColor upperTresholdBlue;
+        upperTresholdBlue.H = 300;
+        upperTresholdBlue.S = 100;
+        upperTresholdBlue.V = 100;
+        upperTresholdBlue = HSVtoPercentileHSV(upperTresholdBlue);
+
+        HSVColor lowerTresholdBlue;
+        lowerTresholdBlue.H = 180;
+        lowerTresholdBlue.S = 50;
+        lowerTresholdBlue.V = 26;
+        lowerTresholdBlue = HSVtoPercentileHSV(lowerTresholdBlue);
+
+        // white treshhold
+        HSVColor upperTresholdWhite;
+        upperTresholdWhite.H = 360;
+        upperTresholdWhite.S = 45;
+        upperTresholdWhite.V = 100;
+        upperTresholdWhite = HSVtoPercentileHSV(upperTresholdWhite);
+
+        HSVColor lowerTresholdWhite;
+        lowerTresholdWhite.H = 0;
+        lowerTresholdWhite.S = 0;
+        lowerTresholdWhite.V = 50;
+        lowerTresholdWhite = HSVtoPercentileHSV(lowerTresholdWhite);
+
+        // yellow treshhold
+        HSVColor upperTresholdYellow;
+        upperTresholdYellow.H = 85;
+        upperTresholdYellow.S = 100;
+        upperTresholdYellow.V = 100;
+        upperTresholdYellow = HSVtoPercentileHSV(upperTresholdYellow);
+
+        HSVColor lowerTresholdYellow;
+        lowerTresholdYellow.H = 40;
+        lowerTresholdYellow.S = 50;
+        lowerTresholdYellow.V = 15;
+        lowerTresholdYellow = HSVtoPercentileHSV(lowerTresholdYellow);
+
+        for (int x = -25; x < 25; ++x)
+        {
+            for (int y = -25; y < 25; ++y)
+            {
+                cubeGridPixelColor = snap.GetPixel(Coordx + x, Coordy + y);
+                Color.RGBToHSV(cubeGridPixelColor, out HSVFromImage[x + 25, y + 25].H, out HSVFromImage[x + 25, y + 25].S, out HSVFromImage[x + 25, y + 25].V);
+                snap.SetPixel(Coordx + x, Coordy + y, Color.red);
+            }
+        }
+
+        // this will be counting each time a detection is found, if it hits a given percentile, we return a color
+        int foundColor = 0;
+
+        int colorIndexToReturn = 0;
+
+        // green detection
+        outputFromInRange = InRange(HSVFromImage, upperTresholdGreen, lowerTresholdGreen);
+        for (int x = -25; x < 25; ++x)
+        {
+            for (int y = -25; y < 25; ++y)
+            {
+                if (outputFromInRange[x + 25, y + 25] == 1)
+                {
+                    snap.SetPixel(Coordx + x, Coordy + y, Color.green);
+                    ++foundColor;
+                }
+            }
+        }
+
+        // if we had foudn a color more than X times, we can return it confidentally
+        if (foundColor > 180)
+            colorIndexToReturn = 2;
+        else
+            foundColor = 0;
 
         // orange detection
         outputFromInRange = InRange(HSVFromImage, upperTresholdOrange, lowerTresholdOrange);
@@ -387,9 +614,15 @@ public class CameraReader : MonoBehaviour
                 if (outputFromInRange[x + 25, y + 25] == 1)
                 {
                     snap.SetPixel(Coordx + x, Coordy + y, Color.magenta);
+                    ++foundColor;
                 }
             }
         }
+
+        if (foundColor > 180)
+            colorIndexToReturn = 5;
+        else
+            foundColor = 0;
 
         // red detection
         outputFromInRange = InRange(HSVFromImage, upperTresholdRed, lowerTresholdRed);
@@ -400,9 +633,15 @@ public class CameraReader : MonoBehaviour
                 if (outputFromInRange[x + 25, y + 25] == 1)
                 {
                     snap.SetPixel(Coordx + x, Coordy + y, Color.red);
+                    ++foundColor;
                 }
             }
         }
+
+        if (foundColor > 180)
+            colorIndexToReturn = 1;
+        else
+            foundColor = 0;
 
         // red2 detection
         outputFromInRange = InRange(HSVFromImage, upperTresholdRed2, lowerTresholdRed2);
@@ -413,9 +652,15 @@ public class CameraReader : MonoBehaviour
                 if (outputFromInRange[x + 25, y + 25] == 1)
                 {
                     snap.SetPixel(Coordx + x, Coordy + y, Color.red);
+                    ++foundColor;
                 }
             }
         }
+
+        if (foundColor > 180)
+            colorIndexToReturn = 1;
+        else
+            foundColor = 0;
 
         // blue detection
         outputFromInRange = InRange(HSVFromImage, upperTresholdBlue, lowerTresholdBlue);
@@ -426,9 +671,15 @@ public class CameraReader : MonoBehaviour
                 if (outputFromInRange[x + 25, y + 25] == 1)
                 {
                     snap.SetPixel(Coordx + x, Coordy + y, Color.blue);
+                    ++foundColor;
                 }
             }
         }
+
+        if (foundColor > 180)
+            colorIndexToReturn = 3;
+        else
+            foundColor = 0;
 
         // white detection
         outputFromInRange = InRange(HSVFromImage, upperTresholdWhite, lowerTresholdWhite);
@@ -439,9 +690,15 @@ public class CameraReader : MonoBehaviour
                 if (outputFromInRange[x + 25, y + 25] == 1)
                 {
                     snap.SetPixel(Coordx + x, Coordy + y, Color.white);
+                    ++foundColor;
                 }
             }
         }
+
+        if (foundColor > 180)
+            colorIndexToReturn = 6;
+        else
+            foundColor = 0;
 
         // yellow detection
         outputFromInRange = InRange(HSVFromImage, upperTresholdYellow, lowerTresholdYellow);
@@ -452,15 +709,21 @@ public class CameraReader : MonoBehaviour
                 if (outputFromInRange[x + 25, y + 25] == 1)
                 {
                     snap.SetPixel(Coordx + x, Coordy + y, Color.yellow);
+                    ++foundColor;
                 }
             }
         }
 
+        if (foundColor > 180)
+            colorIndexToReturn = 4;
+        else
+            foundColor = 0;
+
         snap.Apply();
         background.texture = snap;
 
+        return colorIndexToReturn;
     }
-
 
     //---------------------
     public void StopCameraPlaying()
