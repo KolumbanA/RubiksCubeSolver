@@ -35,10 +35,14 @@ public class ResetCubeScript : MonoBehaviour
 
     public CubeSideReader cubeSideReader;
     public RubiksCubeMap rubiksCubeMap;
+    public GameObject rubiksCubeHolder;
+    public GameObject rubiksCube;
     void Start()
     {
         cubeSideReader = FindObjectOfType<CubeSideReader>();
         rubiksCubeMap = FindObjectOfType<RubiksCubeMap>();
+        rubiksCubeHolder = GameObject.Find("Target");
+        rubiksCube = GameObject.Find("Target");
 
         cubePiece1 = GameObject.Find("L");   
        cubePiece2 = GameObject.Find("R");
@@ -67,9 +71,6 @@ public class ResetCubeScript : MonoBehaviour
        cubePiece25 = GameObject.Find("Piece (25)"); // side piece
        cubePiece26 = GameObject.Find("Piece (26)"); // side piece
 
-        fullCube = GameObject.Find("Cube");
-
-
     }
 
     void Update()
@@ -79,6 +80,9 @@ public class ResetCubeScript : MonoBehaviour
 
     public void ResetCube()
     {
+        //rubiksCubeHolder.transform.eulerAngles = new Vector3(0, 0, 0);
+        
+
         cubePiece1.transform.position = new Vector3(0, 0, 1);
         cubePiece2.transform.position = new Vector3(0, 0, -1);
         cubePiece3.transform.position = new Vector3(1, 0, -1);
@@ -107,36 +111,33 @@ public class ResetCubeScript : MonoBehaviour
         cubePiece26.transform.position = new Vector3(-1, 1, -1);
 
 
-        cubePiece1.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece2.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece3.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece4.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece5.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece6.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece7.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece8.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece9.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece10.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece11.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece12.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece13.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece14.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece15.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece16.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece17.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece18.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece19.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece20.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece21.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece22.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece23.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece24.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece25.transform.eulerAngles = new Vector3(0, 0, 0);
-        cubePiece26.transform.eulerAngles = new Vector3(0, 0, 0);
-
-        //fullCube.transform.eulerAngles = new Vector3(0, 0, 0);
+        cubePiece1.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece2.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece3.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece4.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece5.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece6.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece7.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece8.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece9.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece10.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece11.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece12.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece13.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece14.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece15.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece16.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece17.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece18.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece19.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece20.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece21.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece22.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece23.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece24.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece25.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
+        cubePiece26.transform.eulerAngles = rubiksCubeHolder.transform.eulerAngles;
 
         cubeSideReader.ReadCubeState();
-
     }
 }

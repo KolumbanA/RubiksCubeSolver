@@ -20,15 +20,27 @@ public class RotateWholeCube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Swipe();
-		
-		if(transform.rotation != target.transform.rotation)
+		// this for finger swiping
+		//Swipe();
+
+		RotateCubeSmoothly();
+
+	}
+
+	void RotateCubeSmoothly ()
+    {
+		if (transform.rotation != target.transform.rotation)
 		{
 			var step = speed * Time.deltaTime;
 			transform.rotation = Quaternion.RotateTowards(transform.rotation, target.transform.rotation, step);
 		}
-    }
-	
+	}
+
+	void RotateCubeInstantly()
+	{
+		transform.rotation = target.transform.rotation;
+	}
+
 	void Swipe()
 	{
 		if(Input.GetMouseButtonDown(1))
