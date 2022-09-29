@@ -44,6 +44,10 @@ public class SolveKociemba : MonoBehaviour
         string solution = Search.solution(moveString, out info);
         print(solution);
 
+        if(solution.Contains("Error"))
+        {
+            return;
+        }
         
         //solved moves convert from string to list
         List<string> solutionList = StringToList(solution);
