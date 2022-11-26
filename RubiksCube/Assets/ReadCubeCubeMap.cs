@@ -6,6 +6,14 @@ using System;
 
 public class ReadCubeCubeMap : MonoBehaviour
 {
+    //this is used to store the state of the reading, so it can be transfered to the cube scene
+    public static int[] cubeMapColorsUp = new int[9];
+    public static int[] cubeMapColorsDown = new int[9];
+    public static int[] cubeMapColorsLeft = new int[9];
+    public static int[] cubeMapColorsRight = new int[9];
+    public static int[] cubeMapColorsFront = new int[9];
+    public static int[] cubeMapColorsBack = new int[9];
+
     public Transform up;
     public Transform down;
     public Transform left;
@@ -86,20 +94,32 @@ public class ReadCubeCubeMap : MonoBehaviour
 
     private Color MatchColorToCubeColorByIndex(int colorIndex)
     {
-        if (colorIndex == 1)
+
+        if (colorIndex == 0)
             return cubeColorsArray[0];
-        if(colorIndex == 2)
+        if(colorIndex == 1)
             return cubeColorsArray[1];
-        if(colorIndex == 3)
+        if(colorIndex == 2)
             return cubeColorsArray[2];
-        if(colorIndex == 4)
-            return cubeColorsArray[5];
-        if(colorIndex == 5)
+        if(colorIndex == 3)
             return cubeColorsArray[3];
-        if(colorIndex == 6)
+        if(colorIndex == 4)
             return cubeColorsArray[4];
+        if(colorIndex == 5)
+            return cubeColorsArray[5];
 
         return cubeColorsArray[0];
+
+        /*
+            Color[] cubeColorsArray = new Color[] { Color.red, Color.green, Color.blue, new Color(1, 0.5f, 0, 1), Color.white, Color.yellow};
+          
+            red - 0
+            green - 1
+            blue - 2
+            orange - 3
+            white - 4
+            yellow - 5
+        */
     }
 
     public void UpdateMap2(Transform side, Color[] color)
@@ -119,7 +139,6 @@ public class ReadCubeCubeMap : MonoBehaviour
 
     public void UpdateMap3(Transform side, int[] colorIndex)
     {
-
         side.GetChild(0).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[0]);
         side.GetChild(1).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[1]);
         side.GetChild(2).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[2]);
@@ -130,5 +149,53 @@ public class ReadCubeCubeMap : MonoBehaviour
         side.GetChild(7).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[7]);
         side.GetChild(8).GetComponent<Image>().color = MatchColorToCubeColorByIndex(colorIndex[8]);
 
+        if(side.name[0] == 'U')
+        {
+            for(int i=0;i<9;++i)
+            {
+                cubeMapColorsUp[i] = colorIndex[i];
+            }
+            return;
+        }
+        if (side.name[0] == 'D')
+        {
+            for (int i = 0; i < 9; ++i)
+            {
+                cubeMapColorsDown[i] = colorIndex[i];
+            }
+            return;
+        }
+        if (side.name[0] == 'B')
+        {
+            for (int i = 0; i < 9; ++i)
+            {
+                cubeMapColorsBack[i] = colorIndex[i];
+            }
+            return;
+        }
+        if (side.name[0] == 'F')
+        {
+            for (int i = 0; i < 9; ++i)
+            {
+                cubeMapColorsFront[i] = colorIndex[i];
+            }
+            return;
+        }
+        if (side.name[0] == 'L')
+        {
+            for (int i = 0; i < 9; ++i)
+            {
+                cubeMapColorsLeft[i] = colorIndex[i];
+            }
+            return;
+        }
+        if (side.name[0] == 'R')
+        {
+            for (int i = 0; i < 9; ++i)
+            {
+                cubeMapColorsRight[i] = colorIndex[i];
+            }
+            return;
+        }
     }
 }

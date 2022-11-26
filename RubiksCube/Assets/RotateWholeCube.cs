@@ -36,7 +36,7 @@ public class RotateWholeCube : MonoBehaviour
 		}
 	}
 
-	void RotateCubeInstantly()
+	public void RotateCubeInstantly()
 	{
 		transform.rotation = target.transform.rotation;
 	}

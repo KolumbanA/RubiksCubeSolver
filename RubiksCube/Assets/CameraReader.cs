@@ -200,12 +200,14 @@ public class CameraReader : MonoBehaviour
     private int ReadColorFromCoordinatesHSV(int Coordx, int Coordy)
     {
         /*
-            red - 1
-            green - 2
-            blue - 3
-            yellow - 4
-            orange - 5
-            white - 6 
+    Color[] cubeColorsArray = new Color[] { Color.red, Color.green, Color.blue, new Color(1, 0.5f, 0, 1), Color.white, Color.yellow};
+         * 
+            red - 0
+            green - 1
+            blue - 2
+            orange - 3
+            white - 4
+            yellow - 5
         */
 
         //Texture2D snap = new Texture2D(backCam.width, backCam.height);
@@ -291,7 +293,7 @@ public class CameraReader : MonoBehaviour
         HSVColor lowerTresholdWhite;
         lowerTresholdWhite.H = 0;
         lowerTresholdWhite.S = 0;
-        lowerTresholdWhite.V = 50;
+        lowerTresholdWhite.V = 40;
         lowerTresholdWhite = HSVtoPercentileHSV(lowerTresholdWhite);
 
         // yellow treshhold
@@ -336,7 +338,7 @@ public class CameraReader : MonoBehaviour
 
         // if we had foudn a color more than X times, we can return it confidentally
         if (foundColor > 180)
-            return 2;
+            return 1;
         else
             foundColor = 0;
 
@@ -355,7 +357,7 @@ public class CameraReader : MonoBehaviour
         }
 
         if (foundColor > 180)
-            return 5;
+            return 3;
         else
             foundColor = 0;
 
@@ -374,7 +376,7 @@ public class CameraReader : MonoBehaviour
         }
 
         if (foundColor > 180)
-            return 1;
+            return 0;
         else
             foundColor = 0;
 
@@ -393,7 +395,7 @@ public class CameraReader : MonoBehaviour
         }
 
         if (foundColor > 180)
-            return 1;
+            return 0;
         else
             foundColor = 0;
 
@@ -412,7 +414,7 @@ public class CameraReader : MonoBehaviour
         }
 
         if (foundColor > 180)
-            return 3;
+            return 2;
         else
             foundColor = 0;
 
@@ -431,7 +433,7 @@ public class CameraReader : MonoBehaviour
         }
 
         if (foundColor > 180)
-            return 6;
+            return 4;
         else
             foundColor = 0;
 
@@ -450,7 +452,7 @@ public class CameraReader : MonoBehaviour
         }
 
         if (foundColor > 180)
-            return 4;
+            return 5;
         else
             foundColor = 0;
 
