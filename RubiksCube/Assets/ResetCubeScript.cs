@@ -36,6 +36,11 @@ public class ResetCubeScript : MonoBehaviour
     GameObject cubePiece26;
 
     GameObject[] upCubes = new GameObject[9];
+    GameObject[] downCubes = new GameObject[9];
+    GameObject[] frontCubes = new GameObject[9];
+    GameObject[] backCubes = new GameObject[9];
+    GameObject[] rightCubes = new GameObject[9];
+    GameObject[] leftCubes = new GameObject[9];
 
     public CubeSideReader cubeSideReader;
     public RubiksCubeMap rubiksCubeMap;
@@ -77,15 +82,65 @@ public class ResetCubeScript : MonoBehaviour
         cubePiece25 = GameObject.Find("Piece (25)"); // side piece
         cubePiece26 = GameObject.Find("Piece (26)"); // side piece
 
-        upCubes[0] = cubePiece25;
-        upCubes[1] = cubePiece19;
-        upCubes[2] = cubePiece23;
-        upCubes[3] = cubePiece21;
+        upCubes[0] = cubePiece23;
+        upCubes[1] = cubePiece24;
+        upCubes[2] = cubePiece20;
+        upCubes[3] = cubePiece19;
         upCubes[4] = cubePiece12;
-        upCubes[5] = cubePiece24;
-        upCubes[6] = cubePiece26;
-        upCubes[7] = cubePiece22;
-        upCubes[8] = cubePiece20;
+        upCubes[5] = cubePiece22;
+        upCubes[6] = cubePiece25;
+        upCubes[7] = cubePiece21;
+        upCubes[8] = cubePiece26;
+
+        downCubes[0] = cubePiece16;
+        downCubes[1] = cubePiece17;
+        downCubes[2] = cubePiece11;
+        downCubes[3] = cubePiece13;
+        downCubes[4] = cubePiece6;
+        downCubes[5] = cubePiece14;
+        downCubes[6] = cubePiece10;
+        downCubes[7] = cubePiece9;
+        downCubes[8] = cubePiece15;
+
+        frontCubes[0] = cubePiece25;
+        frontCubes[1] = cubePiece21;
+        frontCubes[2] = cubePiece26;
+        frontCubes[3] = cubePiece7;
+        frontCubes[4] = cubePiece18;
+        frontCubes[5] = cubePiece8;
+        frontCubes[6] = cubePiece16;
+        frontCubes[7] = cubePiece17;
+        frontCubes[8] = cubePiece11;
+
+        rightCubes[0] = cubePiece26;
+        rightCubes[1] = cubePiece22;
+        rightCubes[2] = cubePiece20;
+        rightCubes[3] = cubePiece8;
+        rightCubes[4] = cubePiece2;
+        rightCubes[5] = cubePiece3;
+        rightCubes[6] = cubePiece11;
+        rightCubes[7] = cubePiece14;
+        rightCubes[8] = cubePiece15;
+
+        leftCubes[0] = cubePiece23;
+        leftCubes[1] = cubePiece19;
+        leftCubes[2] = cubePiece25;
+        leftCubes[3] = cubePiece5;
+        leftCubes[4] = cubePiece1;
+        leftCubes[5] = cubePiece7;
+        leftCubes[6] = cubePiece10;
+        leftCubes[7] = cubePiece13;
+        leftCubes[8] = cubePiece16;
+
+        backCubes[0] = cubePiece20;
+        backCubes[1] = cubePiece24;
+        backCubes[2] = cubePiece23;
+        backCubes[3] = cubePiece3;
+        backCubes[4] = cubePiece4;
+        backCubes[5] = cubePiece5;
+        backCubes[6] = cubePiece15;
+        backCubes[7] = cubePiece9;
+        backCubes[8] = cubePiece10;
     }
 
     void Update()
@@ -176,64 +231,409 @@ public class ResetCubeScript : MonoBehaviour
             Renderer renderer = allChildren[4].GetComponent<Renderer>();
             renderer.material.color = cubeColorsArray[2];
         }
+        
+        foreach (GameObject piece in frontCubes)
+        {
+            Transform[] allChildren = piece.GetComponentsInChildren<Transform>();
 
+            allChildren[1].name = "Back";
+            allChildren[2].name = "Front";
+            allChildren[3].name = "Down";
+            allChildren[4].name = "Up";
+            allChildren[5].name = "Left";
+            allChildren[6].name = "Right";
+
+            Renderer renderer = allChildren[2].GetComponent<Renderer>();
+            renderer.material.color = cubeColorsArray[5];
+        }
+        
+        foreach (GameObject piece in rightCubes)
+        {
+            Transform[] allChildren = piece.GetComponentsInChildren<Transform>();
+
+            allChildren[1].name = "Back";
+            allChildren[2].name = "Front";
+            allChildren[3].name = "Down";
+            allChildren[4].name = "Up";
+            allChildren[5].name = "Left";
+            allChildren[6].name = "Right";
+
+            Renderer renderer = allChildren[6].GetComponent<Renderer>();
+            renderer.material.color = cubeColorsArray[3];
+        }
+
+        foreach (GameObject piece in backCubes)
+        {
+            Transform[] allChildren = piece.GetComponentsInChildren<Transform>();
+
+            allChildren[1].name = "Back";
+            allChildren[2].name = "Front";
+            allChildren[3].name = "Down";
+            allChildren[4].name = "Up";
+            allChildren[5].name = "Left";
+            allChildren[6].name = "Right";
+
+            Renderer renderer = allChildren[1].GetComponent<Renderer>();
+            renderer.material.color = cubeColorsArray[4];
+        }
+
+        foreach (GameObject piece in downCubes)
+        {
+            Transform[] allChildren = piece.GetComponentsInChildren<Transform>();
+
+            allChildren[1].name = "Back";
+            allChildren[2].name = "Front";
+            allChildren[3].name = "Down";
+            allChildren[4].name = "Up";
+            allChildren[5].name = "Left";
+            allChildren[6].name = "Right";
+
+            Renderer renderer = allChildren[3].GetComponent<Renderer>();
+            renderer.material.color = cubeColorsArray[1];
+        }
+
+        foreach (GameObject piece in leftCubes)
+        {
+            Transform[] allChildren = piece.GetComponentsInChildren<Transform>();
+
+            allChildren[1].name = "Back";
+            allChildren[2].name = "Front";
+            allChildren[3].name = "Down";
+            allChildren[4].name = "Up";
+            allChildren[5].name = "Left";
+            allChildren[6].name = "Right";
+
+            Renderer renderer = allChildren[5].GetComponent<Renderer>();
+            renderer.material.color = cubeColorsArray[0];
+        }
+        
         cubeSideReader.ReadCubeState();
     }
 
 
-    // A reset jol mukodesehez szukseges, hogy a kocka ne legyen elforgatva terben
     public void FillCube ()
     {
-        //itt a kockak kis kockainak a neveit es szineit is kellene resetelni
+        //itt a kockak kis kockainak a neveit es szineit is reseteli
         ResetCube();
 
-
-
+        // up cubes set
         for (int i = 0; i < 9; ++i)
         {
             if (ReadCubeCubeMap.cubeMapColorsUp[i] == 0)
             {
-                Renderer renderer = upCubes[i].transform.Find("Up").GetComponent<Renderer>();
+                Transform[] allSides = upCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[4].GetComponent<Renderer>(); ;
                 renderer.material.color = cubeColorsArray[0];
 
-                upCubes[i].transform.Find("Up").name = "Left";
+                allSides[4].transform.name = "Left";
             }
             if (ReadCubeCubeMap.cubeMapColorsUp[i] == 1)
             {
-                Renderer renderer = upCubes[i].transform.Find("Up").GetComponent<Renderer>();
+                Transform[] allSides = upCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[4].GetComponent<Renderer>(); ;
                 renderer.material.color = cubeColorsArray[1];
 
-                upCubes[i].transform.Find("Up").name = "Down";
+                allSides[4].transform.name = "Down";
             }
             if (ReadCubeCubeMap.cubeMapColorsUp[i] == 2)
             {
-                Renderer renderer = upCubes[i].transform.Find("Up").GetComponent<Renderer>();
+                Transform[] allSides = upCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[4].GetComponent<Renderer>(); ;
                 renderer.material.color = cubeColorsArray[2];
 
-                upCubes[i].transform.Find("Up").name = "Up";
+                allSides[4].transform.name = "Up";
             }
             if (ReadCubeCubeMap.cubeMapColorsUp[i] == 3)
             {
-                Renderer renderer = upCubes[i].transform.Find("Up").GetComponent<Renderer>();
+                Transform[] allSides = upCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[4].GetComponent<Renderer>(); ;
                 renderer.material.color = cubeColorsArray[3];
 
-                upCubes[i].transform.Find("Up").name = "Right";
+                allSides[4].transform.name = "Right";
             }
             if (ReadCubeCubeMap.cubeMapColorsUp[i] == 4)
             {
-                Renderer renderer = upCubes[i].transform.Find("Up").GetComponent<Renderer>();
+                Transform[] allSides = upCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[4].GetComponent<Renderer>(); ;
                 renderer.material.color = cubeColorsArray[4];
 
-                upCubes[i].transform.Find("Up").name = "Back";
+                allSides[4].transform.name = "Back";
             }
             if (ReadCubeCubeMap.cubeMapColorsUp[i] == 5)
             {
-                Renderer renderer = upCubes[i].transform.Find("Up").GetComponent<Renderer>();
+                Transform[] allSides = upCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[4].GetComponent<Renderer>(); ;
                 renderer.material.color = cubeColorsArray[5];
 
-                upCubes[i].transform.Find("Up").name = "Front";
+                allSides[4].transform.name = "Front";
             }
         }
+
+        // front cubes set
+        for (int i = 0; i < 9; ++i)
+        {
+            if (ReadCubeCubeMap.cubeMapColorsFront[i] == 0)
+            {
+                Transform[] allSides = frontCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[2].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[0];
+
+                allSides[2].transform.name = "Left";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsFront[i] == 1)
+            {
+                Transform[] allSides = frontCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[2].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[1];
+
+                allSides[2].transform.name = "Down";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsFront[i] == 2)
+            {
+                Transform[] allSides = frontCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[2].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[2];
+
+                allSides[2].transform.name = "Up";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsFront[i] == 3)
+            {
+                Transform[] allSides = frontCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[2].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[3];
+
+                allSides[2].transform.name = "Right";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsFront[i] == 4)
+            {
+                Transform[] allSides = frontCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[2].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[4];
+
+                allSides[2].transform.name = "Back";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsFront[i] == 5)
+            {
+                Transform[] allSides = frontCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[2].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[5];
+
+                allSides[2].transform.name = "Front";
+            }
+        }
+
+        // right cubes set
+        for (int i = 0; i < 9; ++i)
+        {
+            if (ReadCubeCubeMap.cubeMapColorsRight[i] == 0)
+            {
+                Transform[] allSides = rightCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[6].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[0];
+
+                allSides[6].transform.name = "Left";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsRight[i] == 1)
+            {
+                Transform[] allSides = rightCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[6].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[1];
+
+                allSides[6].transform.name = "Down";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsRight[i] == 2)
+            {
+                Transform[] allSides = rightCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[6].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[2];
+
+                allSides[6].transform.name = "Up";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsRight[i] == 3)
+            {
+                Transform[] allSides = rightCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[6].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[3];
+
+                allSides[6].transform.name = "Right";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsRight[i] == 4)
+            {
+                Transform[] allSides = rightCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[6].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[4];
+
+                allSides[6].transform.name = "Back";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsRight[i] == 5)
+            {
+                Transform[] allSides = rightCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[6].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[5];
+
+                allSides[6].transform.name = "Front";
+            }
+        }
+
+        // back cubes set
+        for (int i = 0; i < 9; ++i)
+        {
+            if (ReadCubeCubeMap.cubeMapColorsBack[i] == 0)
+            {
+                Transform[] allSides = backCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[1].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[0];
+
+                allSides[1].transform.name = "Left";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsBack[i] == 1)
+            {
+                Transform[] allSides = backCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[1].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[1];
+
+                allSides[1].transform.name = "Down";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsBack[i] == 2)
+            {
+                Transform[] allSides = backCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[1].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[2];
+
+                allSides[1].transform.name = "Up";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsBack[i] == 3)
+            {
+                Transform[] allSides = backCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[1].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[3];
+
+                allSides[1].transform.name = "Right";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsBack[i] == 4)
+            {
+                Transform[] allSides = backCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[1].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[4];
+
+                allSides[1].transform.name = "Back";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsBack[i] == 5)
+            {
+                Transform[] allSides = backCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[1].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[5];
+
+                allSides[1].transform.name = "Front";
+            }
+        }
+
+        // down cubes set
+        for (int i = 0; i < 9; ++i)
+        {
+            if (ReadCubeCubeMap.cubeMapColorsDown[i] == 0)
+            {
+                Transform[] allSides = downCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[3].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[0];
+
+                allSides[3].transform.name = "Left";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsDown[i] == 1)
+            {
+                Transform[] allSides = downCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[3].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[1];
+
+                allSides[3].transform.name = "Down";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsDown[i] == 2)
+            {
+                Transform[] allSides = downCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[3].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[2];
+
+                allSides[3].transform.name = "Up";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsDown[i] == 3)
+            {
+                Transform[] allSides = downCubes[3].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[1].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[3];
+
+                allSides[3].transform.name = "Right";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsDown[i] == 4)
+            {
+                Transform[] allSides = downCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[3].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[4];
+
+                allSides[3].transform.name = "Back";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsDown[i] == 5)
+            {
+                Transform[] allSides = downCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[3].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[5];
+
+                allSides[3].transform.name = "Front";
+            }
+        }
+
+        // left cubes set
+        for (int i = 0; i < 9; ++i)
+        {
+            if (ReadCubeCubeMap.cubeMapColorsLeft[i] == 0)
+            {
+                Transform[] allSides = leftCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[5].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[0];
+
+                allSides[5].transform.name = "Left";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsLeft[i] == 1)
+            {
+                Transform[] allSides = leftCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[5].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[1];
+
+                allSides[5].transform.name = "Down";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsLeft[i] == 2)
+            {
+                Transform[] allSides = leftCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[5].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[2];
+
+                allSides[5].transform.name = "Up";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsLeft[i] == 3)
+            {
+                Transform[] allSides = leftCubes[3].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[5].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[3];
+
+                allSides[5].transform.name = "Right";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsLeft[i] == 4)
+            {
+                Transform[] allSides = leftCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[5].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[4];
+
+                allSides[5].transform.name = "Back";
+            }
+            if (ReadCubeCubeMap.cubeMapColorsLeft[i] == 5)
+            {
+                Transform[] allSides = leftCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[5].GetComponent<Renderer>(); ;
+                renderer.material.color = cubeColorsArray[5];
+
+                allSides[5].transform.name = "Front";
+            }
+        }
+
         cubeSideReader.ReadCubeState();
     }
 }
