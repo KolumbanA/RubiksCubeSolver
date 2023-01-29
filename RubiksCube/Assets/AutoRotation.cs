@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AutoRotation : MonoBehaviour
 {
+    GameObject nextMoveButton;
+    public static bool rotatingTurnedToAutomatic = false;
+
     public static List<string> moveList = new List<string> { };
     private readonly List<string> allMoves = new List<string>
     { "U", "D", "L", "R", "F", "B",
@@ -18,12 +22,24 @@ public class AutoRotation : MonoBehaviour
     {
         cubeState = FindObjectOfType<CubeState>();
         cubeSideReader = FindObjectOfType<CubeSideReader>();
+        nextMoveButton = GameObject.Find("do_move_button");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(moveList.Count > 0 && !CubeState.autoRotating && CubeState.gameLoaded)
+        if(moveList.Count > 0 && !CubeState.autoRotating && CubeState.gameLoaded && rotatingTurnedToAutomatic)
+        {
+            //do move
+            DoMove(moveList[0]);
+            //remove done move
+            moveList.Remove(moveList[0]);
+        }
+    }
+
+    public void DoOneMove()
+    {
+        if (moveList.Count > 0 && !CubeState.autoRotating && CubeState.gameLoaded)
         {
             //do move
             DoMove(moveList[0]);
@@ -138,5 +154,19 @@ public class AutoRotation : MonoBehaviour
         SideRotation sr = side[4].transform.parent.GetComponent<SideRotation>();
         Debug.Log(sr);
         sr.StartAutoRotate(side, angle);
-    }    
+    } 
+    
+    public void ToggleAutoRotating()
+    {
+        if (rotatingTurnedToAutomatic)
+        {
+            rotatingTurnedToAutomatic = false;
+            nextMoveButton.SetActive(true);
+        }
+        else
+        {
+            rotatingTurnedToAutomatic = true;
+            nextMoveButton.SetActive(false);
+        }
+    }
 }
