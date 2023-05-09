@@ -449,6 +449,7 @@ GameObject:
   - component: {fileID: 76672905}
   - component: {fileID: 76672906}
   - component: {fileID: 76672907}
+  - component: {fileID: 76672908}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -603,6 +604,19 @@ MonoBehaviour:
   rotateWholeCube: {fileID: 0}
   rubiksCubeTarget: {fileID: 0}
   rubiksCube: {fileID: 0}
+--- !u!114 &76672908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76672899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ad1f9d833466a42816566c6c0a5f03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  algorithmsSelectButtonText: {fileID: 2009932612}
 --- !u!1 &81615381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,9 +1356,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 76672906}
-        m_TargetAssemblyTypeName: SolveKociemba, Assembly-CSharp
-        m_MethodName: Solver
+      - m_Target: {fileID: 76672908}
+        m_TargetAssemblyTypeName: SolvingAlgorithms, Assembly-CSharp
+        m_MethodName: TestAlgorithm
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3401,9 +3415,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 76672905}
-        m_TargetAssemblyTypeName: AutoRotation, Assembly-CSharp
-        m_MethodName: RandomizeCube
+      - m_Target: {fileID: 76672908}
+        m_TargetAssemblyTypeName: SolvingAlgorithms, Assembly-CSharp
+        m_MethodName: NextAlgorithmButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7904,9 +7918,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 76672905}
-        m_TargetAssemblyTypeName: AutoRotation, Assembly-CSharp
-        m_MethodName: RandomizeCube
+      - m_Target: {fileID: 76672908}
+        m_TargetAssemblyTypeName: SolvingAlgorithms, Assembly-CSharp
+        m_MethodName: PreviousAlgorithmButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
