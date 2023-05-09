@@ -22,7 +22,7 @@ public class AutoRotation : MonoBehaviour
     {
         cubeState = FindObjectOfType<CubeState>();
         cubeSideReader = FindObjectOfType<CubeSideReader>();
-        nextMoveButton = GameObject.Find("do_move_button");
+        nextMoveButton = GameObject.Find("Do_move_button");
     }
 
     // Update is called once per frame
