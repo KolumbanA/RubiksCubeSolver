@@ -147,14 +147,14 @@ public class CameraReader : MonoBehaviour
         {
             for (int j = 0; j < 50; j++)
             {
-                if (input[i, j].H > 1 || input[i, j].S > 1 || input[i, j].V > 1)
+                if (input[i, j].H > 1 || input[i, j].S > 1 || input[i, j].V > 1 || input[i, j].H < 0 || input[i, j].S < 0 || input[i, j].V < 0)
                 {
                     Debug.Log("HSV InRange ERROR!");
                     Debug.Assert(true);
                 }
 
-
                 output[i, j] = 0;
+
                 if (input[i,j].H <= upperTreshold.H && input[i,j].H >= lowerTreshold.H)
                 {
                     if (input[i, j].S <= upperTreshold.S && input[i, j].S >= lowerTreshold.S)

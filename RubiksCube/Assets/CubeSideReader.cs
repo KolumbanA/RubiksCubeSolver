@@ -74,13 +74,10 @@ public class CubeSideReader : MonoBehaviour
         int rayCount = 0;
         List<GameObject> rays = new List<GameObject>();
 
-        //int teszt = 0;
-
         for (int y = 1; y > -2; --y)
         {
             for (int x = -1; x < 2; ++x)
             {
-                //++teszt;
                 Vector3 startPos = new Vector3(rayTransform.localPosition.x + x, rayTransform.localPosition.y + y, rayTransform.localPosition.z);
                 GameObject rayStart = Instantiate(emptyGO, startPos, Quaternion.identity, rayTransform);
                 rayStart.name = rayCount.ToString();
@@ -88,9 +85,6 @@ public class CubeSideReader : MonoBehaviour
                 ++rayCount;
             }
         }
-        //print("raynumber number");
-        //print(teszt);
-
         rayTransform.localRotation = Quaternion.Euler(direction);
         return rays;
     }
@@ -115,9 +109,7 @@ public class CubeSideReader : MonoBehaviour
             {
                 Debug.DrawRay(ray, rayTransform.forward * 1000, Color.green);
             }
-        }
-
-      
+        }  
 
         return facesHit;
     }
