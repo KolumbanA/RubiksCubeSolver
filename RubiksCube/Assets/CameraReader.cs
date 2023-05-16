@@ -210,10 +210,6 @@ public class CameraReader : MonoBehaviour
             yellow - 5
         */
 
-        //Texture2D snap = new Texture2D(backCam.width, backCam.height);
-        //snap.SetPixels(backCam.GetPixels());//debug kedveert
-        //snap.Apply();
-
         Color cubeGridPixelColor;
         HSVColor[,] HSVFromImage = new HSVColor[50, 50];
         short[,] outputFromInRange = new short[50, 50];

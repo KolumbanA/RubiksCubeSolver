@@ -616,6 +616,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ad1f9d833466a42816566c6c0a5f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  solveButton: {fileID: 729623608}
+  randomizeButton: {fileID: 1919509720}
+  algorithmsButton: {fileID: 2023631570}
+  algorithmsSelectButton: {fileID: 183429594}
+  algorithmsNextButton: {fileID: 662051577}
+  algorithmsPreviousButton: {fileID: 1553213232}
   algorithmsSelectButtonText: {fileID: 2009932612}
 --- !u!1 &81615381
 GameObject:
@@ -4601,12 +4607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bfd1d5b5a3f25b43a2000bde45b53a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  solveButton: {fileID: 729623608}
-  randomizeButton: {fileID: 1919509720}
-  algorithmsButton: {fileID: 2023631570}
-  algorithmsSelectButton: {fileID: 183429594}
-  algorithmsNextButton: {fileID: 662051577}
-  algorithmsPreviousButton: {fileID: 1553213232}
 --- !u!1 &806068803
 GameObject:
   m_ObjectHideFlags: 0
@@ -10344,8 +10344,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 796868527}
-        m_TargetAssemblyTypeName: SceneSwitcher, Assembly-CSharp
+      - m_Target: {fileID: 76672908}
+        m_TargetAssemblyTypeName: SolvingAlgorithms, Assembly-CSharp
         m_MethodName: SwitchToAlgorithmsView
         m_Mode: 1
         m_Arguments:

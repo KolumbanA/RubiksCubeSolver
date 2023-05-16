@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class SolvingAlgorithms : MonoBehaviour
 {
+    public GameObject solveButton;
+    public GameObject randomizeButton;
+    public GameObject algorithmsButton;
+    public GameObject algorithmsSelectButton;
+    public GameObject algorithmsNextButton;
+    public GameObject algorithmsPreviousButton;
+
+    private bool algorithmsViewActive = false;
     public Text algorithmsSelectButtonText;
     private int selectedAlgorithmIndex = 0;
 
@@ -34,6 +42,12 @@ private readonly List<string> testAlgorithm = new List<string>
     void Start()
     {
         algorithmsSelectButtonText.text = solvingAlgorithms[0].ToString();
+        algorithmsViewActive = false;
+        randomizeButton.SetActive(true);
+        solveButton.SetActive(true);
+        algorithmsSelectButton.SetActive(false);
+        algorithmsNextButton.SetActive(false);
+        algorithmsPreviousButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -87,5 +101,25 @@ private readonly List<string> testAlgorithm = new List<string>
         }
         algorithmsSelectButtonText.text = solvingAlgorithms[selectedAlgorithmIndex].ToString();
     }
-
+    public void SwitchToAlgorithmsView()
+    {
+        if (algorithmsViewActive)
+        {
+            algorithmsViewActive = false;
+            randomizeButton.SetActive(true);
+            solveButton.SetActive(true);
+            algorithmsSelectButton.SetActive(false);
+            algorithmsNextButton.SetActive(false);
+            algorithmsPreviousButton.SetActive(false);
+        }
+        else
+        {
+            algorithmsViewActive = true;
+            randomizeButton.SetActive(false);
+            solveButton.SetActive(false);
+            algorithmsSelectButton.SetActive(true);
+            algorithmsNextButton.SetActive(true);
+            algorithmsPreviousButton.SetActive(true);
+        }
+    }
 }
