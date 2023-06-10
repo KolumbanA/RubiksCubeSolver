@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class AutoRotation : MonoBehaviour
 {
     GameObject nextMoveButton;
     public static bool rotatingTurnedToAutomatic = false;
+    public Text movesInMoveList;
 
     public static List<string> moveList = new List<string> { };
     private readonly List<string> allMoves = new List<string>
@@ -35,6 +37,22 @@ public class AutoRotation : MonoBehaviour
             //remove done move
             moveList.Remove(moveList[0]);
         }
+        UpdateMoveListTextOnUi();
+    }
+
+    public void UpdateMoveListTextOnUi ()
+    {
+        movesInMoveList.text = string.Empty;
+
+        //movesInMoveList.text = String.Join(",", moveList);
+        for (int i = 0; i < moveList.Count; ++i)
+        {
+            movesInMoveList.text += moveList[i] + "  ";
+
+            if (i > 5)
+                break;
+        }
+        
     }
 
     public void DoOneMove()
@@ -45,23 +63,25 @@ public class AutoRotation : MonoBehaviour
             DoMove(moveList[0]);
             //remove done move
             moveList.Remove(moveList[0]);
+            UpdateMoveListTextOnUi();
         }
     }
 
     public void RandomizeCube()
     {
         List<string> moves = new List<string>();
-        int moveNumbers = Random.Range(15, 35);
+        int moveNumbers = UnityEngine.Random.Range(15, 35);
         int randomMove;
 
         for (int i=0; i < moveNumbers; ++i)
         {
-            randomMove = Random.Range(0, allMoves.Count);
+            randomMove = UnityEngine.Random.Range(0, allMoves.Count);
             moves.Add(allMoves[randomMove]);
             //print(allMoves[randomMove]);
         }
 
         moveList = moves;
+        UpdateMoveListTextOnUi();
     }
 
     void DoMove(string move)
