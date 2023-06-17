@@ -29,7 +29,7 @@ public class CameraReader : MonoBehaviour
         //cubeGridPos.x += 0;
 
         // WINDOWSON kell 110 offset
-        cubeGridPos.x += 110;
+       // cubeGridPos.x += 110;
         cubeGridPos.y += 110;
 
         Debug.Log("grid x " + cubeGridPos.x);
@@ -130,7 +130,7 @@ public class CameraReader : MonoBehaviour
 
         for(int i=0; i<9; ++i)
         {
-            colorIndexOfSide[i] = ReadColorFromCoordinatesHSVDebugModeON(x + xOffsets[i], y + yOffsets[i]);
+            colorIndexOfSide[i] = ReadColorFromCoordinatesHSV(x + xOffsets[i], y + yOffsets[i]);
         }
 
         return colorIndexOfSide;
