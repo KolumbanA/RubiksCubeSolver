@@ -44,33 +44,30 @@ public class RubiksCubeMap : MonoBehaviour
         int i = 0;
         foreach(Transform map in side)
         {
-            if (face[i].name[0] == 'B')
+            switch (face[i].name[0])
             {
-                map.GetComponent<Image>().color = Color.white;
+                case 'B':
+                    map.GetComponent<Image>().color = Color.white;
+                    break;
+                case 'F':
+                    map.GetComponent<Image>().color = Color.yellow;
+                    break;
+                case 'U':
+                    map.GetComponent<Image>().color = Color.blue;
+                    break;
+                case 'D':
+                    map.GetComponent<Image>().color = Color.green;
+                    break;
+                case 'L':
+                    map.GetComponent<Image>().color = Color.red;
+                    break;
+                case 'R':
+                    map.GetComponent<Image>().color = new Color(1, 0.5f, 0, 1);
+                    break;
+                default:
+                    break;
             }
-            
-            if (face[i].name[0] == 'F')
-            {
-                map.GetComponent<Image>().color = Color.yellow;
-            }
-            if (face[i].name[0] == 'U')
-            {
-                map.GetComponent<Image>().color = Color.blue;
-            }
-            
 
-            if (face[i].name[0] == 'D')
-            {
-                map.GetComponent<Image>().color = Color.green;
-            }
-            if (face[i].name[0] == 'L')
-            {
-                map.GetComponent<Image>().color = Color.red;
-            }
-            if (face[i].name[0] == 'R')
-            {
-                map.GetComponent<Image>().color = new Color(1, 0.5f, 0, 1);
-            }
             ++i;
         }
     }

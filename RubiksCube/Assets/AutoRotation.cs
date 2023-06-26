@@ -12,13 +12,11 @@ public class AutoRotation : MonoBehaviour
 
     public static List<string> moveList = new List<string> { };
     private readonly List<string> allMoves = new List<string>
-    { "U", "D", "L", "R", "F", "B",
-      "U'", "D'", "L'", "R'", "F'", "B'",
-      "U2", "D2", "L2", "R2", "F2", "B2"};
-
+    { "U", "U'", "U2", "D", "D'", "D2", "L", "L'", "L2", "R", "R'", "R2", "F", "F'", "F2", "B", "B'", "B2"};
 
     private CubeState cubeState;
     private CubeSideReader cubeSideReader;
+
     // Start is called before the first frame update
     void Start()
     {

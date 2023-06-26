@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Kociemba;
 using System;
+using System.Diagnostics;
 
 public class SolveKociemba : MonoBehaviour
 {
     public CubeSideReader cubeSideReader;
     public CubeState cubeState;
     public bool doOnce = true;
+
+    static List<long> idok = new List<long>();
+    static List<long> lepesszam = new List<long>();
+
     void Start()
     {
         cubeSideReader = FindObjectOfType<CubeSideReader>();
@@ -26,11 +31,14 @@ public class SolveKociemba : MonoBehaviour
 
     public void Solver()
     {
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+
         cubeSideReader.ReadCubeState();
         //get state of cube in a string
 
         string moveString = cubeState.GetStateString();
-        print(moveString);
+        //print(moveString);
 
         //solving the cube
         string info = "";
@@ -42,7 +50,7 @@ public class SolveKociemba : MonoBehaviour
 
         //other times tables are generated --> fast solve
         string solution = Search.solution(moveString, out info);
-        print(solution);
+        //print(solution);
 
         if(solution.Contains("Error"))
         {
@@ -59,7 +67,15 @@ public class SolveKociemba : MonoBehaviour
         //solving
         AutoRotation.moveList = solutionList;
 
-        print(info);
+        stopwatch.Stop();
+        long time = stopwatch.ElapsedMilliseconds;
+
+        idok.Add(time);
+        lepesszam.Add(solutionList.Count);
+
+        print(time);
+
+        //print(info);
         
     }
 
