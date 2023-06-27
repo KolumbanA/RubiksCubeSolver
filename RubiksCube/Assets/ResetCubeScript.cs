@@ -557,8 +557,8 @@ public class ResetCubeScript : MonoBehaviour
             }
             if (ReadCubeCubeMap.cubeMapColorsDown[i] == 3)
             {
-                Transform[] allSides = downCubes[3].GetComponentsInChildren<Transform>();
-                Renderer renderer = allSides[1].GetComponent<Renderer>(); ;
+                Transform[] allSides = downCubes[i].GetComponentsInChildren<Transform>();
+                Renderer renderer = allSides[3].GetComponent<Renderer>(); ;
                 renderer.material.color = cubeColorsArray[3];
 
                 allSides[3].transform.name = "Right";
@@ -610,7 +610,7 @@ public class ResetCubeScript : MonoBehaviour
             }
             if (ReadCubeCubeMap.cubeMapColorsLeft[i] == 3)
             {
-                Transform[] allSides = leftCubes[3].GetComponentsInChildren<Transform>();
+                Transform[] allSides = leftCubes[i].GetComponentsInChildren<Transform>();
                 Renderer renderer = allSides[5].GetComponent<Renderer>(); ;
                 renderer.material.color = cubeColorsArray[3];
 
