@@ -22,21 +22,21 @@ public class SolvingAlgorithms : MonoBehaviour
       "U2", "D2", "L2", "R2", "F2", "B2"};
     */
 
-private readonly List<string> testAlgorithm = new List<string>
-    { "U", "U", "U", "D"};
+    private readonly List<string> topLayerSwitchFrontCorners = new List<string>
+    { "R'", "F", "R'", "B", "B", "R", "F'", "R'", "B", "B", "R", "R", "U"};
 
-    private readonly List<string> testAlgorithm2 = new List<string>
-    { "D", "D", "D", "D"};
+    private readonly List<string> lastLayerCorners = new List<string>
+    { "R", "U", "R'", "U", "R", "U", "U", "R'"};
 
-    private readonly List<string> testAlgorithm3 = new List<string>
-    { "L", "L", "L", "L"};
-
-    private readonly List<string> testAlgorithm4 = new List<string>
-    { "F", "F", "F", "F"};
+    private readonly List<string> secondLayerSideOfT = new List<string>
+    { "U", "R", "U'", "R'", "U'", "F'", "U", "F"};
+     
+    private readonly List<string> lToCross = new List<string>
+    { "F", "U", "R", "U'", "R'", "F'"};
 
 
     private readonly List<string> solvingAlgorithms = new List<string>
-    { "Teszt1", "Teszt2", "Teszt3", "Teszt4"};
+    {"topLayerSwitchFrontCorners", "lastLayerCorners", "lToCross", "secondLayerSideOfT"};
 
     // Start is called before the first frame update
     void Start()
@@ -61,16 +61,16 @@ private readonly List<string> testAlgorithm = new List<string>
         switch(selectedAlgorithmIndex)
         {
             case 0:
-                AutoRotation.moveList = new List<string>(testAlgorithm);
+                AutoRotation.moveList = new List<string>(topLayerSwitchFrontCorners);
                 break;
             case 1:
-                AutoRotation.moveList = new List<string>(testAlgorithm2);
+                AutoRotation.moveList = new List<string>(lastLayerCorners);
                 break;
             case 2:
-                AutoRotation.moveList = new List<string>(testAlgorithm3);
+                AutoRotation.moveList = new List<string>(lToCross);
                 break;
             case 3:
-                AutoRotation.moveList = new List<string>(testAlgorithm4);
+                AutoRotation.moveList = new List<string>(secondLayerSideOfT);
                 break;
             default:
                 break;
